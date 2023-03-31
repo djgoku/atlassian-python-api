@@ -80,6 +80,18 @@ class Workspaces(BitbucketCloudBase):
                 pass
         return exists
 
+    def search_code(self, workspace, search_query, page=1, limit=10):
+        """
+        Search repositories for matching code
+        :workspace: str
+        :search_query: str
+        """
+        url = self.resource_url("workspaces/{workspace}/search/code".format(workspace=workspace))
+        return self.get(
+            url,
+            params={"search_query": search_query, "page": page, "pagelen": limit},
+        )
+
 
 class Workspace(BitbucketCloudBase):
     def __init__(self, data, *args, **kwargs):
